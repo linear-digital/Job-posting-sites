@@ -3,11 +3,14 @@ import ImageAuth from './_UI/ImageAuth';
 import { Input, Button } from '@material-tailwind/react';
 import { Link } from 'react-router-dom';
 const Signup = () => {
+  const [loading, setLoading] = React.useState(false);
     const formHandler = (e) => {
+        setLoading(true);
         e.preventDefault();
         const allData = new FormData(e.target);
         const data = Object.fromEntries(allData.entries());
         console.log(data);
+        setLoading(false);
     }
     return (
         <div>
@@ -29,14 +32,17 @@ const Signup = () => {
                         <form onSubmit={formHandler} className="space-y-4">
                             {/* Your form elements go here */}
                             <div>
-                                <Input size="md" label="Email / Phone" name='email' required type='text'/>
+                                <Input size="md" label="Email" name='email' required type='text'/>
+                            </div>
+                            <div>
+                                <Input size="md" label="Phone Number" name='phone' required type='text'/>
                             </div>
                             <div>
                                 <Input size="md" label="Password" name='password' required type='password' icon={true}/>
                             </div>
 
                             <div>
-                                <Button type='submit'>Login</Button>
+                                <Button loading={loading} type='submit'>Create Account</Button>
                             </div>
                         </form>
                         <div className="mt-4 text-sm text-gray-600 text-center">
