@@ -4,6 +4,7 @@ import Home from '../pages/home/Home';
 import App from './../App';
 import Login from './../pages/Auth/Login';
 import Signup from '../pages/Auth/Signup';
+import Error from '../pages/Error/Error';
 
 const router = createBrowserRouter([
     {
@@ -22,9 +23,13 @@ const router = createBrowserRouter([
             {
                 path: 'signup',
                 element: <Signup />
+            },
+            {
+                path: '*',
+                element: <Error />
             }
         ]
-    }
+    },
 ])
 
 export default router;
