@@ -26,9 +26,9 @@ export function StickyNavbar() {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <a href="#" className="flex items-center">
-                    Pages
-                </a>
+                <Link to="/" className="flex items-center">
+                    Home
+                </Link>
             </Typography>
             <Typography
                 as="li"
@@ -36,9 +36,9 @@ export function StickyNavbar() {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <a href="#" className="flex items-center">
-                    Account
-                </a>
+                <Link to="/jobs" className="flex items-center">
+                    Jobs
+                </Link>
             </Typography>
             <Typography
                 as="li"
@@ -46,9 +46,9 @@ export function StickyNavbar() {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <a href="#" className="flex items-center">
-                    Blocks
-                </a>
+                <Link to="/about" className="flex items-center">
+                    About
+                </Link>
             </Typography>
             <Typography
                 as="li"
@@ -56,10 +56,21 @@ export function StickyNavbar() {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <a href="#" className="flex items-center">
-                    Docs
-                </a>
+                <Link to="/services" className="flex items-center">
+                    Services
+                </Link>
             </Typography>
+            <Typography
+                as="li"
+                variant="small"
+                color="blue-gray"
+                className="p-1 font-normal"
+            >
+                <Link to="/contact" className="flex items-center">
+                    Contact
+                </Link>
+            </Typography>
+
         </ul>
     );
 
@@ -137,10 +148,10 @@ export function StickyNavbar() {
                 <MobileNav open={openNav}>
                     {navList}
                     <div className="flex items-center gap-x-1">
-                        <Button1 
-                        role={'link'}
-                        href={'/login'}
-                        fullWidth variant="text" size="sm" className="">
+                        <Button1
+                            role={'link'}
+                            href={'/login'}
+                            fullWidth variant="text" size="sm" className="">
                             <span>Log In</span>
                         </Button1>
                         <Button1 role="link" href={'/signup'} fullWidth variant="gradient" size="sm" className="">
