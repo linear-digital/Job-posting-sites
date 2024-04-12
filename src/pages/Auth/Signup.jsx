@@ -1,16 +1,36 @@
 import React from 'react';
 import ImageAuth from './_UI/ImageAuth';
-import { Input, Button } from '@material-tailwind/react';
+import { Input, Button, Select, Option } from '@material-tailwind/react';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import {toast} from 'react-hot-toast'
+import { api } from './../../components/axios/instance';
+
 const Signup = () => {
-  const [loading, setLoading] = React.useState(false);
-    const formHandler = (e) => {
-        setLoading(true);
+    const [loading, setLoading] = React.useState(false);
+    const [role, setRole] = React.useState('');
+    const [error, setError] = useState(false);
+    const formHandler = async (e) => {
         e.preventDefault();
-        const allData = new FormData(e.target);
-        const data = Object.fromEntries(allData.entries());
-        console.log(data);
-        setLoading(false);
+
+        try {
+            if (!role) {
+                return setError(true);
+            }
+            setError(false);
+            setLoading(true);
+            const allData = new FormData(e.target);
+            const data = Object.fromEntries(allData.entries());
+            const newUser = { ...data, role };
+            // sending a new user to backend 
+            const response = await api.post('/user/register', newUser)
+            toast.success(response.data?.message)
+            setLoading(false);
+
+        } catch (error) {
+            setLoading(false);
+            toast.error(error?.response?.data?.message || "Something went wrong")
+        }
     }
     return (
         <div>
@@ -32,15 +52,23 @@ const Signup = () => {
                         <form onSubmit={formHandler} className="space-y-4">
                             {/* Your form elements go here */}
                             <div>
-                                <Input size="md" label="Email" name='email' required type='text'/>
+                                <Input size="md" label="Full Name" name='name' required type='text' />
                             </div>
                             <div>
-                                <Input size="md" label="Phone Number" name='phone' required type='text'/>
+                                <Input size="md" label="Email" name='email' required type='text' />
                             </div>
                             <div>
-                                <Input size="md" label="Password" name='password' required type='password' icon={true}/>
+                                <Input size="md" label="Phone Number" name='phone' required type='text' />
                             </div>
-
+                            <div>
+                                <Input size="md" label="Password" name='password' required type='password' icon={true} />
+                            </div>
+                            <div>
+                                <Select error={error} value={role} onChange={(e) => setRole(e)} label="Join as" required>
+                                    <Option value='recruiter'>Recruiter</Option>
+                                    <Option value='user'>User</Option>
+                                </Select>
+                            </div>
                             <div>
                                 <Button loading={loading} type='submit'>Create Account</Button>
                             </div>

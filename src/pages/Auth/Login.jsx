@@ -2,13 +2,25 @@ import React from 'react';
 import ImageAuth from './_UI/ImageAuth';
 import { Input, Button } from '@material-tailwind/react';
 import { Link } from 'react-router-dom';
+import { api } from '../../components/axios/instance';
+import { toast } from 'react-hot-toast';
+import Cookie from 'js-cookie';
+
+
 const Login = () => {
-    const formHandler = (e) => {
+    const formHandler = async (e) => {
         e.preventDefault();
         const allData = new FormData(e.target);
         const data = Object.fromEntries(allData.entries());
-        console.log(data);
+       try {
+            const result = await api.post('/user/login', data);
+            toast.success(result.data?.message)
+            Cookie.set('accessToken', result.data.token, { expires: 100 })
+       } catch (error) {
+            toast.error(error?.response?.data?.message || "Something went wrong")
+       }
     }
+    
     return (
         <div>
             {/* component */}

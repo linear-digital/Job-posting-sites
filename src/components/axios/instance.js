@@ -1,9 +1,11 @@
 import axios from "axios";
+import Cookie  from 'js-cookie';
 
 export const api = axios.create({
-    baseURL: 'https://jsonplaceholder.typicode.com',
+    baseURL: 'http://localhost:5000/api',
     headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'token': Cookie.get('accessToken')
     }
 })
 

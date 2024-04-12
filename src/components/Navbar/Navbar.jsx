@@ -7,34 +7,25 @@ import {
 } from "@material-tailwind/react";
 import { Button1 } from "../Buttons/Buttons";
 import { Link } from "react-router-dom";
+import useCurrentUser from "../hooks/useCurrentUser";
 
 export function StickyNavbar() {
     const [openNav, setOpenNav] = React.useState(false);
-
+    const user = useCurrentUser();
     React.useEffect(() => {
         window.addEventListener(
             "resize",
             () => window.innerWidth >= 960 && setOpenNav(false),
         );
     }, []);
-
     const navList = (
-        <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+        <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 ">
+
             <Typography
                 as="li"
                 variant="small"
                 color="blue-gray"
-                className="p-1 font-normal"
-            >
-                <Link to="/" className="flex items-center">
-                    Home
-                </Link>
-            </Typography>
-            <Typography
-                as="li"
-                variant="small"
-                color="blue-gray"
-                className="p-1 font-normal"
+                className="p-1  text-primary font-bold"
             >
                 <Link to="/jobs" className="flex items-center">
                     Jobs
@@ -44,27 +35,7 @@ export function StickyNavbar() {
                 as="li"
                 variant="small"
                 color="blue-gray"
-                className="p-1 font-normal"
-            >
-                <Link to="/about" className="flex items-center">
-                    About
-                </Link>
-            </Typography>
-            <Typography
-                as="li"
-                variant="small"
-                color="blue-gray"
-                className="p-1 font-normal"
-            >
-                <Link to="/services" className="flex items-center">
-                    Services
-                </Link>
-            </Typography>
-            <Typography
-                as="li"
-                variant="small"
-                color="blue-gray"
-                className="p-1 font-normal"
+                className="p-1  text-primary font-bold"
             >
                 <Link to="/contact" className="flex items-center">
                     Contact
@@ -76,36 +47,49 @@ export function StickyNavbar() {
 
     return (
         <div className="h-auto container mx-auto">
-            <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
+            <Navbar shadow={false} blurred={false} className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 bg-transparent">
                 <div className="flex items-center justify-between text-blue-gray-900">
                     <Link
                         to={'/'}
-                        className="mr-4 cursor-pointer py-1.5 lg:text-xl font-semibold"
+                        className="mr-4 cursor-pointer py-1.5 lg:text-2xl font-semibold text-primary"
                     >
                         Jon Planet
                     </Link>
                     <div className="flex items-center gap-4">
                         <div className="mr-4 hidden lg:block">{navList}</div>
-                        <div className="flex items-center gap-x-1">
-                            <Button1
-                                role={"link"}
-                                href={"/login"}
-                                variant="text"
-                                size="sm"
-                                className="hidden lg:inline-block"
-                            >
-                                <span>Log In</span>
-                            </Button1>
-                            <Button1
-                                role={"link"}
-                                href={"/signup"}
-                                variant="gradient"
-                                size="sm"
-                                className="hidden lg:inline-block"
-                            >
-                                <span>Sign Up</span>
-                            </Button1>
-                        </div>
+                        {
+                            user ?
+                                <div className="flex items-center gap-x-1">
+                                    <div className="dropdown dropdown-end">
+                                        <div tabIndex={0} role="button" className="btn m-1">Dashboard</div>
+                                        <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                                            <li><a>Item 1</a></li>
+                                            <li><a>Item 2</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                :
+                                <div className="flex items-center gap-x-1">
+                                    <Button1
+                                        role={"link"}
+                                        href={"/login"}
+                                        variant="text"
+                                        size="sm"
+                                        className="hidden lg:inline-block font-bold text-primary "
+                                    >
+                                        <span>Log In</span>
+                                    </Button1>
+                                    <Button1
+                                        role={"link"}
+                                        href={"/signup"}
+                                        variant="gradient"
+                                        size="sm"
+                                        className="hidden lg:inline-block"
+                                    >
+                                        <span>Sign Up</span>
+                                    </Button1>
+                                </div>
+                        }
                         <IconButton
                             variant="text"
                             className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
