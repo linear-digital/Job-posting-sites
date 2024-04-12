@@ -1,13 +1,12 @@
 import React from 'react';
 import ImageAuth from './_UI/ImageAuth';
 import { Input, Button } from '@material-tailwind/react';
-import { Link } from 'react-router-dom';
 import { api } from '../../components/axios/instance';
 import { toast } from 'react-hot-toast';
 import Cookie from 'js-cookie';
 
 
-const Login = () => {
+const Login = ({dialog}) => {
     const formHandler = async (e) => {
         e.preventDefault();
         const allData = new FormData(e.target);
@@ -16,6 +15,7 @@ const Login = () => {
             const result = await api.post('/user/login', data);
             toast.success(result.data?.message)
             Cookie.set('accessToken', result.data.token, { expires: 100 })
+            window.location.href = '/'
        } catch (error) {
             toast.error(error?.response?.data?.message || "Something went wrong")
        }
@@ -24,15 +24,17 @@ const Login = () => {
     return (
         <div>
             {/* component */}
-            <div className="flex h-screen">
+            <div className={`flex ${!dialog && 'h-screen'}`}>
                 {/* Left Pane */}
-                <div className="hidden lg:flex items-center justify-center flex-1 bg-white text-black">
-                    <div className="max-w-md text-center">
-                        <ImageAuth />
-                    </div>
+               {
+                !dialog &&  <div className="hidden lg:flex items-center justify-center flex-1 bg-white text-black">
+                <div className="max-w-md text-center">
+                    <ImageAuth />
                 </div>
+            </div>
+               }
                 {/* Right Pane */}
-                <div className="w-full bg-gray-100 lg:w-1/2 flex items-center justify-center">
+                <div className={`w-full bg-gray-100 ${!dialog ? "lg:w-1/2" : 'w-full'} flex items-center justify-center`}>
                     <div className="max-w-md w-full p-6">
                         <h1 className="text-3xl font-semibold mb-6 text-black text-center">Welcome Back</h1>
                         <h1 className="text-sm font-semibold mb-6 text-gray-500 text-center">Login to your account </h1>
@@ -52,7 +54,7 @@ const Login = () => {
                             </div>
                         </form>
                         <div className="mt-4 text-sm text-gray-600 text-center">
-                            <p>Dont't Have account? <Link to="/signup" className="text-black hover:underline">Signup here</Link>
+                            <p>Dont't Have account? <a href="/signup" className="text-black hover:underline">Signup here</a>
                             </p>
                         </div>
                     </div>

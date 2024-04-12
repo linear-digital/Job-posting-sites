@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom'
 import './App.css'
 import { StickyNavbar } from './components/Navbar/Navbar'
 import { Toaster } from 'react-hot-toast'
+import LoginDialog from './pages/Auth/_UI/LoginDialog'
 function App() {
 
 
@@ -13,6 +14,7 @@ function App() {
     >
       <div className="overlay min-h-screen max-h-screen overflow-y-auto">
         <StickyNavbar />
+        <LoginDialog />
         <Toaster />
         <Outlet />
       </div>
