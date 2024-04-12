@@ -17,7 +17,7 @@ export function JobCard({applyForJob}) {
                     Medical Nurse in Norway (Europe)
                 </Typography>
                 {/* user name and date */}
-                <div className="flex items-center ">
+                <div className="flex items-center mb-2">
                     <h2 className="text-sm font-semibold text-blue-gray">John Doe</h2>
                     <h2 className="text-sm ml-3 text-blue-gray">(5d ago)</h2>
                 </div>
