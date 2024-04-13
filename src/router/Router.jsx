@@ -6,6 +6,8 @@ import Login from './../pages/Auth/Login';
 import Signup from '../pages/Auth/Signup';
 import Error from '../pages/Error/Error';
 import Contact from '../pages/Contact/Contact';
+import Dashboard from '../pages/Dashboard/Dashboard';
+import Profile from '../pages/Dashboard/Profile/Profile';
 
 const router = createBrowserRouter([
     {
@@ -25,10 +27,24 @@ const router = createBrowserRouter([
                 path: 'signup',
                 element: <Signup />
             },
-            
             {
                 path: 'contact',
                 element: <Contact />
+            },
+            {
+                path: 'panel',
+                element: <Dashboard />,
+                children: [
+                    {
+                        path: 'profile',
+                        element: <Profile />
+                    },
+                    {
+                        path: '*',
+                        element: <Profile />
+                    }
+
+                ]
             },
             {
                 path: '*',

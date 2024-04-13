@@ -8,16 +8,29 @@ import {
 import { Button1 } from "../Buttons/Buttons";
 import { Link } from "react-router-dom";
 import useCurrentUser from "../hooks/useCurrentUser";
+import { useLocation } from "react-router-dom";
+import { useState } from "react";
+import { useEffect } from "react";
 
 export function StickyNavbar() {
     const [openNav, setOpenNav] = React.useState(false);
     const user = useCurrentUser();
+    const location = useLocation()
+    const [hideNavab, setHideNavbar] = useState(false)
     React.useEffect(() => {
         window.addEventListener(
             "resize",
             () => window.innerWidth >= 960 && setOpenNav(false),
         );
     }, []);
+    useEffect(()=> {
+        if(location.pathname.includes('panel')){
+            setHideNavbar(true)
+        }
+        else {
+            setHideNavbar(false)
+        }
+    },[location])
     const navList = (
         <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 ">
 
@@ -44,7 +57,9 @@ export function StickyNavbar() {
 
         </ul>
     );
-
+    if (hideNavab) {
+        return null
+    }
     return (
         <div className="h-auto container mx-auto">
             <Navbar shadow={false} blurred={false} className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 bg-transparent">
@@ -64,12 +79,12 @@ export function StickyNavbar() {
                                         <div tabIndex={0} role="button" className="btn m-1">Dashboard</div>
                                         <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
                                             <li>
-                                                <Link to={'/profile'}>
+                                                <Link to={'/panel/profile'}>
                                                     Profile
                                                 </Link>
                                             </li>
                                             <li>
-                                                <Link to={'/dashboard'}>
+                                                <Link to={'/panel/dashboard'}>
                                                     DashBoard
                                                 </Link>
                                             </li>
