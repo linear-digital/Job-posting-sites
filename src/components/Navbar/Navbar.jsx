@@ -11,6 +11,8 @@ import useCurrentUser from "../hooks/useCurrentUser";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
+import { Button } from "@material-tailwind/react";
+import { signOut } from "../hooks/signOut";
 
 export function StickyNavbar() {
     const [openNav, setOpenNav] = React.useState(false);
@@ -23,14 +25,14 @@ export function StickyNavbar() {
             () => window.innerWidth >= 960 && setOpenNav(false),
         );
     }, []);
-    useEffect(()=> {
-        if(location.pathname.includes('panel')){
+    useEffect(() => {
+        if (location.pathname.includes('panel')) {
             setHideNavbar(true)
         }
         else {
             setHideNavbar(false)
         }
-    },[location])
+    }, [location])
     const navList = (
         <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 ">
 
@@ -87,6 +89,13 @@ export function StickyNavbar() {
                                                 <Link to={'/panel/dashboard'}>
                                                     DashBoard
                                                 </Link>
+                                            </li>
+                                            <li>
+                                                <Button color="red"
+                                                    onClick={() => signOut()}
+                                                    size="sm">
+                                                    SignOut
+                                                </Button>
                                             </li>
                                         </ul>
                                     </div>

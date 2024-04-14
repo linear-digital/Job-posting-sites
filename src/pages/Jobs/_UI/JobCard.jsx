@@ -1,4 +1,4 @@
-import { MapIcon, MapPinIcon } from "@heroicons/react/16/solid";
+import { MapPinIcon } from "@heroicons/react/16/solid";
 import {
     Card,
     CardBody,
@@ -11,16 +11,41 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DialogApply from "./Dialog";
 import { ApplyForm } from "./ApplyForm";
-export function JobCard({ job, mode, user, count }) {
+import { api } from "../../../components/axios/instance";
+import toast from "react-hot-toast";
+export function JobCard({ job, mode, user, count, adminMode, refetch }) {
     const [open, setOpen] = useState(false)
     const navigate = useNavigate()
+    const handleDelete = async () => {
+        try {
+            const confirm = window.confirm("Are you sure you want to complete this job? After complet this job no one can apply for it.")
+            if (!confirm) return
+            const res = await api.put(`/jobs/${job?._id}`, { status: "completed" })
+            toast.success(res.data.message)
+            refetch && refetch()
+        } catch (error) {
+            toast.error(error?.response?.data?.message || "Something went wrong")
+            setError(error?.response?.data?.message || "Something went wrong")
+        }
+    }
+    const editHandler = () => {
+        navigate(`/jobs/${job?._id}/edit`)
+    }
+    const applyForJob = (job) => {
+        if (!user) {
+            return document.getElementById('my_modal_1').showModal()
+        }
+       setOpen(true)
+    }
     return (
         <Card className="mt-6 w-full">
             <DialogApply open={open} setOpen={setOpen}>
-                <ApplyForm job={job} user={user} setOpen={setOpen}/>
+                <ApplyForm job={job} user={user} setOpen={setOpen} />
             </DialogApply>
             <CardBody
-                onClick={() => navigate(`/jobs/${job?._id}`)}
+                onClick={() => {
+                    !adminMode && navigate(`/jobs/${job?._id}`)
+                }}
             >
                 {/* title  */}
                 <Typography variant="h5" color="blue-gray" className="mb-2">
@@ -43,14 +68,34 @@ export function JobCard({ job, mode, user, count }) {
                 </Typography>
 
             </CardBody>
-
             {
-                mode !== 'view' &&
-                <CardFooter className="pt-0">
-                    <Button onClick={() => {
-                        setOpen(true)
-                    }}>Apply now</Button>
-                </CardFooter>
+                job?.status !== "completed" ?
+                    <>
+
+                        {
+                            adminMode ?
+                                <CardFooter className="pt-0 flex gap-3">
+                                    <Button onClick={() => {
+                                        editHandler()
+                                    }}>Edit</Button>
+                                    <Button
+
+                                        color="green" onClick={() => {
+                                            handleDelete()
+                                        }}>Completed ?</Button>
+                                </CardFooter>
+                                :
+                                <CardFooter className="pt-0">
+                                    <Button onClick={() => {
+                                        applyForJob()
+                                    }}>Apply now</Button>
+                                </CardFooter>
+                        }
+                    </>
+                    :
+                    <CardFooter className="pt-0">
+                        <Button color="green">Completed</Button>
+                    </CardFooter>
             }
 
         </Card>

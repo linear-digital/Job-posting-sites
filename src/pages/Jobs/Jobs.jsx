@@ -15,9 +15,7 @@ const Jobs = ({filters}) => {
     const { isLoading, data: jobs, refetch } = useQuery({
         queryKey: ["jobs", filters],
         queryFn: async () => {
-            const passbook = await api.get(`/jobs`,{
-                params: filters
-            });
+            const passbook = await api.get(`/jobs?status=active&&${filters}`);
             return passbook.data
         }
     })
@@ -27,7 +25,7 @@ const Jobs = ({filters}) => {
     return (
         <div className='container mx-auto'>
             {
-                jobs?.map(job => <JobCard key={job._id} job={job} applyForJob={applyForJob} user={user}/>)
+                jobs?.map(job => <JobCard key={job._id} job={job} applyForJob={applyForJob} user={user} refetch={refetch}/>)
             }
         
         </div>

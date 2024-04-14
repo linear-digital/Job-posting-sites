@@ -3,13 +3,15 @@ import { Link } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 import useCurrentUser from '../../components/hooks/useCurrentUser';
 import { useLocation } from 'react-router-dom';
+import { Button } from '@material-tailwind/react';
+import { signOut } from '../../components/hooks/signOut';
 
 const Dashboard = () => {
     const user = useCurrentUser();
     const location = useLocation();
     return (
         <div>
-        
+
             <div className="drawer lg:drawer-open">
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content ml-4 max-h-screen overflow-y-auto">
@@ -24,14 +26,34 @@ const Dashboard = () => {
                         <li className={location.pathname === '/panel/profile' ? 'active' : ''}>
                             <Link to="/panel/profile">Profile</Link>
                         </li>
-                        <li className={location.pathname === '/panel/apply-history' ? 'active' : ''}>
-                            <Link to="/panel/apply-history">Apply History</Link>
-                        </li>
-                        <li className={location.pathname === '/panel/jobs' ? 'active' : ''}>
-                            <Link to="/panel/jobs">Your Job Posts</Link>
-                        </li>
-                        <li className={location.pathname === '/panel/create' ? 'active' : ''}>
-                            <Link to="/panel/create">Create A Job Post</Link>
+                        {
+                            user?.role === "user" &&
+                            <li className={location.pathname === '/panel/apply-history' ? 'active' : ''}>
+                                <Link to="/panel/apply-history">Apply History</Link>
+                            </li>
+
+                        }
+
+                        {
+                            user?.role === "recruiter" &&
+                            <>
+                                <li className={location.pathname === '/panel/jobs' ? 'active' : ''}>
+                                    <Link to="/panel/jobs">Your Job Posts</Link>
+                                </li>
+                                <li className={location.pathname === '/panel/create' ? 'active' : ''}>
+                                    <Link to="/panel/create">Create A Job Post</Link>
+                                </li>
+                            </>
+                        }
+
+                        <li>
+                            <Button color='red' className='mt-10'
+                                onClick={() => {
+                                    signOut();
+                                }}
+                            >
+                                SignOut
+                            </Button>
                         </li>
                     </ul>
 
