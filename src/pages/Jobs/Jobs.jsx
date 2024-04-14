@@ -4,7 +4,7 @@ import useCurrentUser from '../../components/hooks/useCurrentUser';
 import toast from 'react-hot-toast';
 import { useQuery } from '@tanstack/react-query';
 import { api } from '../../components/axios/instance';
-const Jobs = ({filters}) => {
+const Jobs = ({ filters }) => {
     const user = useCurrentUser()
     const applyForJob = (job) => {
         if (!user) {
@@ -15,19 +15,22 @@ const Jobs = ({filters}) => {
     const { isLoading, data: jobs, refetch } = useQuery({
         queryKey: ["jobs", filters],
         queryFn: async () => {
-            const passbook = await api.get(`/jobs?status=active&&${filters}`);
+            const passbook = await api.post(`/jobs/filter`, {
+                ...filters,
+                status: "active"
+            });
             return passbook.data
         }
     })
-    if(isLoading){
+    if (isLoading) {
         return <h1>Loading...</h1>
     }
     return (
         <div className='container mx-auto'>
             {
-                jobs?.map(job => <JobCard key={job._id} job={job} applyForJob={applyForJob} user={user} refetch={refetch}/>)
+                jobs?.map(job => <JobCard key={job._id} job={job} applyForJob={applyForJob} user={user} refetch={refetch} />)
             }
-        
+
         </div>
     );
 };

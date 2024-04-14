@@ -1,12 +1,21 @@
 import { useState } from 'react'
 
 
-export default function HeroArea() {
+export default function HeroArea({ setFilters }) {
 
     const [search, setSearch] = useState("")
+    const searchH = () => {
+        if (search === "") {
+            // Remove title { $regex: search, } from filters
+            setFilters({})
+        }
+        else {
+            setFilters({ title: { $regex: search, } })
+        }
+    }
     return (
         <div className=""
-      
+
         >
 
             <div className="relative isolate px-6 pt-5 lg:px-8">
@@ -34,7 +43,7 @@ export default function HeroArea() {
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                             />
-                            <button className='bg-primary  text-black font-bold py-2 h-full px-10 '>Find</button>
+                            <button onClick={searchH} className='bg-primary  text-black font-bold py-2 h-full px-10 '>Find</button>
                         </div>
                     </div>
                 </div>

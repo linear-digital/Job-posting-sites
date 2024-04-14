@@ -5,7 +5,6 @@ import useCurrentUser from '../../components/hooks/useCurrentUser';
 import { useLocation } from 'react-router-dom';
 import { Button } from '@material-tailwind/react';
 import { signOut } from '../../components/hooks/signOut';
-import { IconButton } from '@material-tailwind/react';
 import { Bars3Icon } from '@heroicons/react/16/solid';
 
 const Dashboard = () => {
