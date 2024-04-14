@@ -13,6 +13,8 @@ import Jobs from '../pages/Jobs/Jobs';
 import JobDetails from '../pages/Jobs/JobDetails';
 import Myposts from '../pages/Dashboard/MyPosts/Myposts';
 import EditJobPost from '../pages/Dashboard/EditJobPost/EditJobPost';
+import ApplyHistory from '../pages/Dashboard/ApplyHistory/ApplyHistory';
+import { RecruiterChecker, UserChecker } from '../components/AuthChecker';
 
 const router = createBrowserRouter([
     {
@@ -38,7 +40,9 @@ const router = createBrowserRouter([
             },
             {
                 path: 'panel',
-                element: <Dashboard />,
+                element: <UserChecker>
+                    <Dashboard />
+                </UserChecker>,
                 children: [
                     {
                         path: 'profile',
@@ -46,14 +50,23 @@ const router = createBrowserRouter([
                     },
                     {
                         path: 'jobs',
-                        element: <Myposts />
+                        element: <RecruiterChecker>
+                            <Myposts />
+                        </RecruiterChecker>
+                    }, {
+                        path: 'apply-history',
+                        element: <ApplyHistory />
                     },
                     {
                         path: 'jobs/:id',
-                        element: <EditJobPost />
+                        element: <RecruiterChecker>
+                            <EditJobPost />
+                        </RecruiterChecker>
                     }, {
                         path: 'create',
-                        element: <CreateJob />
+                        element: <RecruiterChecker>
+                            <CreateJob />
+                        </RecruiterChecker>
                     },
                     {
                         path: '*',

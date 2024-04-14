@@ -1,4 +1,4 @@
-import { MapPinIcon } from "@heroicons/react/16/solid";
+import { EyeIcon, MapPinIcon } from "@heroicons/react/16/solid";
 import {
     Card,
     CardBody,
@@ -13,8 +13,10 @@ import DialogApply from "./Dialog";
 import { ApplyForm } from "./ApplyForm";
 import { api } from "../../../components/axios/instance";
 import toast from "react-hot-toast";
+import ApplyedUsers from "../../Dashboard/ApplyedUsers/ApplyedUsers";
 export function JobCard({ job, mode, user, count, adminMode, refetch }) {
     const [open, setOpen] = useState(false)
+    const [open2, setOpen2] = useState(false)
     const navigate = useNavigate()
     const handleDelete = async () => {
         try {
@@ -35,13 +37,22 @@ export function JobCard({ job, mode, user, count, adminMode, refetch }) {
         if (!user) {
             return document.getElementById('my_modal_1').showModal()
         }
-       setOpen(true)
+        setOpen(true)
     }
     return (
         <Card className="mt-6 w-full">
-            <DialogApply open={open} setOpen={setOpen}>
-                <ApplyForm job={job} user={user} setOpen={setOpen} />
-            </DialogApply>
+            {
+                open && <DialogApply open={open} setOpen={setOpen}>
+                    <ApplyForm job={job} user={user} setOpen={setOpen} />
+                </DialogApply>
+            }
+            {
+                open2 && <DialogApply open={open2} setOpen={setOpen2}>
+                    {/* Applyed users */}
+                    <ApplyedUsers job={job} />
+                </DialogApply>
+            }
+
             <CardBody
                 onClick={() => {
                     !adminMode && navigate(`/jobs/${job?._id}`)
@@ -79,10 +90,16 @@ export function JobCard({ job, mode, user, count, adminMode, refetch }) {
                                         editHandler()
                                     }}>Edit</Button>
                                     <Button
-
+                                        className="flex items-center gap-2"
                                         color="green" onClick={() => {
+                                            setOpen2(true)
+                                        }}>Who applyed <EyeIcon height={20} /></Button>
+                                    <Button
+
+                                        color="red" onClick={() => {
                                             handleDelete()
                                         }}>Completed ?</Button>
+
                                 </CardFooter>
                                 :
                                 <CardFooter className="pt-0">
