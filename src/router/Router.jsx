@@ -1,5 +1,5 @@
 
-import {createBrowserRouter} from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 import Home from '../pages/home/Home';
 import App from './../App';
 import Login from './../pages/Auth/Login';
@@ -8,6 +8,10 @@ import Error from '../pages/Error/Error';
 import Contact from '../pages/Contact/Contact';
 import Dashboard from '../pages/Dashboard/Dashboard';
 import Profile from '../pages/Dashboard/Profile/Profile';
+import CreateJob from '../pages/Dashboard/CreateJob/CreateJob';
+import Jobs from '../pages/Jobs/Jobs';
+import JobDetails from '../pages/Jobs/JobDetails';
+import Myposts from '../pages/Dashboard/MyPosts/Myposts';
 
 const router = createBrowserRouter([
     {
@@ -22,7 +26,7 @@ const router = createBrowserRouter([
                 path: 'login',
                 element: <Login />
             },
-            
+
             {
                 path: 'signup',
                 element: <Signup />
@@ -40,11 +44,26 @@ const router = createBrowserRouter([
                         element: <Profile />
                     },
                     {
+                        path: 'jobs',
+                        element: <Myposts />
+                    }, {
+                        path: 'create',
+                        element: <CreateJob />
+                    },
+                    {
                         path: '*',
                         element: <Profile />
                     }
 
                 ]
+            },
+            {
+                path: "jobs",
+                element: <Jobs />
+            },
+            {
+                path: "jobs/:id",
+                element: <JobDetails />
             },
             {
                 path: '*',

@@ -6,33 +6,53 @@ import {
     Typography,
     Button,
 } from "@material-tailwind/react";
-
-export function JobCard({applyForJob}) {
-
+import moment from 'moment'
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import DialogApply from "./Dialog";
+import { ApplyForm } from "./ApplyForm";
+export function JobCard({ job, mode, user, count }) {
+    const [open, setOpen] = useState(false)
+    const navigate = useNavigate()
     return (
         <Card className="mt-6 w-full">
-            <CardBody>
+            <DialogApply open={open} setOpen={setOpen}>
+                <ApplyForm job={job} user={user} setOpen={setOpen}/>
+            </DialogApply>
+            <CardBody
+                onClick={() => navigate(`/jobs/${job?._id}`)}
+            >
                 {/* title  */}
                 <Typography variant="h5" color="blue-gray" className="mb-2">
-                    Medical Nurse in Norway (Europe)
+                    {job?.title}
                 </Typography>
                 {/* user name and date */}
                 <div className="flex items-center mb-2">
-                    <h2 className="text-sm font-semibold text-blue-gray">John Doe</h2>
-                    <h2 className="text-sm ml-3 text-blue-gray">(5d ago)</h2>
+                    <h2 className="text-sm font-semibold text-blue-gray">
+                        {job?.user?.name}
+                    </h2>
+                    <h2 className="text-sm ml-3 text-blue-gray">({
+                        moment(job?.createdAt).fromNow()
+                    })</h2>
                 </div>
-                <Typography  color="blue-gray" className="mb-2 text-sm flex">
-                  <MapPinIcon height={16}/>   123 Main Street, New York, NY
+                <Typography color="blue-gray" className="mb-2 text-sm flex">
+                    <MapPinIcon height={16} />   {job?.location}
                 </Typography>
                 <Typography>
-                    The place is close to Barceloneta Beach and bus stop just 2 min by
-                    walk and near to &quot;Naviglio&quot; where you can enjoy the main
-                    night life in Barcelona.
+                    {job?.description}
                 </Typography>
+
             </CardBody>
-            <CardFooter className="pt-0">
-                <Button onClick={()=> applyForJob({name : "no"})}>Apply now</Button>
-            </CardFooter>
+
+            {
+                mode !== 'view' &&
+                <CardFooter className="pt-0">
+                    <Button onClick={() => {
+                        setOpen(true)
+                    }}>Apply now</Button>
+                </CardFooter>
+            }
+
         </Card>
     );
 }
