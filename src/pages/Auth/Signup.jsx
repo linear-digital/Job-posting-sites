@@ -5,11 +5,13 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import {toast} from 'react-hot-toast'
 import { api } from './../../components/axios/instance';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
     const [loading, setLoading] = React.useState(false);
     const [role, setRole] = React.useState('');
     const [error, setError] = useState(false);
+    const navigate = useNavigate()
     const formHandler = async (e) => {
         e.preventDefault();
 
@@ -26,6 +28,7 @@ const Signup = () => {
             const response = await api.post('/user/register', newUser)
             toast.success(response.data?.message)
             setLoading(false);
+            navigate('/login')
 
         } catch (error) {
             setLoading(false);

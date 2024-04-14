@@ -29,7 +29,7 @@ export function JobCard({ job, mode, user, count, adminMode, refetch }) {
         }
     }
     const editHandler = () => {
-        navigate(`/jobs/${job?._id}/edit`)
+        navigate(`/panel/jobs/${job?._id}`)
     }
     const applyForJob = (job) => {
         if (!user) {

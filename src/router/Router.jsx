@@ -12,6 +12,7 @@ import CreateJob from '../pages/Dashboard/CreateJob/CreateJob';
 import Jobs from '../pages/Jobs/Jobs';
 import JobDetails from '../pages/Jobs/JobDetails';
 import Myposts from '../pages/Dashboard/MyPosts/Myposts';
+import EditJobPost from '../pages/Dashboard/EditJobPost/EditJobPost';
 
 const router = createBrowserRouter([
     {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
                     {
                         path: 'jobs',
                         element: <Myposts />
+                    },
+                    {
+                        path: 'jobs/:id',
+                        element: <EditJobPost />
                     }, {
                         path: 'create',
                         element: <CreateJob />
