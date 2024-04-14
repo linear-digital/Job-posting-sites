@@ -63,8 +63,8 @@ export function StickyNavbar() {
         return null
     }
     return (
-        <div className="h-auto container mx-auto">
-            <Navbar shadow={false} blurred={false} className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 bg-transparent">
+        <div className="h-auto container mx-auto ">
+            <Navbar shadow={false} blurred={false} className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 lg:bg-transparent bg-white">
                 <div className="flex items-center justify-between text-blue-gray-900">
                     <Link
                         to={'/'}

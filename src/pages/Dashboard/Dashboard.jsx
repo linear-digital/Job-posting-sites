@@ -5,6 +5,8 @@ import useCurrentUser from '../../components/hooks/useCurrentUser';
 import { useLocation } from 'react-router-dom';
 import { Button } from '@material-tailwind/react';
 import { signOut } from '../../components/hooks/signOut';
+import { IconButton } from '@material-tailwind/react';
+import { Bars3Icon } from '@heroicons/react/16/solid';
 
 const Dashboard = () => {
     const user = useCurrentUser();
@@ -14,14 +16,19 @@ const Dashboard = () => {
 
             <div className="drawer lg:drawer-open">
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-                <div className="drawer-content ml-4 max-h-screen overflow-y-auto">
+                <div className="drawer-content lg:ml-4 max-h-screen overflow-y-auto">
                     {/* Page content here */}
-                    {/* <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open drawer</label> */}
+                    <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">
+                        <Bars3Icon width={24} />
+                    </label>
                     <Outlet />
                 </div>
                 <div className="drawer-side">
                     <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
                     <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+                        <h1 className='text-center text-2xl font-semibold mb-6 pt-4'>
+                            <Link to='/'>Job Portal</Link>
+                        </h1>
                         {/* Sidebar content here */}
                         <li className={location.pathname === '/panel/profile' ? 'active' : ''}>
                             <Link to="/panel/profile">Profile</Link>
