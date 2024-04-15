@@ -24,8 +24,8 @@ const Dashboard = () => {
                 <div className="drawer-side">
                     <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
                     <ul className="menu p-4 w-80 min-h-full text-blue-gray-900  bg-white">
-                        <h1 className='text-center text-2xl font-semibold mb-6 pt-4'>
-                            <Link to='/'>Job Portal</Link>
+                        <h1 className='text-center text-xl font-bold mb-6 pt-4'>
+                            <Link to='/'>Volunteering Society</Link>
                         </h1>
                         {/* Sidebar content here */}
                         <li className={location.pathname === '/panel/profile' ? 'active' : ''}>
