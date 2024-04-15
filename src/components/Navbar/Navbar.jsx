@@ -70,7 +70,7 @@ export function StickyNavbar() {
                         to={'/'}
                         className="mr-4 cursor-pointer py-1.5 lg:text-2xl font-semibold text-primary"
                     >
-                        Jon Planet
+                        Volunteering Society
                     </Link>
                     <div className="flex items-center gap-4">
                         <div className="mr-4 hidden lg:block">{navList}</div>
@@ -78,8 +78,8 @@ export function StickyNavbar() {
                             user ?
                                 <div className="flex items-center gap-x-1">
                                     <div className="dropdown dropdown-end">
-                                        <div tabIndex={0} role="button" className="btn m-1">Dashboard</div>
-                                        <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                                        <div tabIndex={0} role="button" className="btn m-1 bg-white text-gray-800 hover:bg-gray-200">Dashboard</div>
+                                        <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-white rounded-box w-52">
                                             <li>
                                                 <Link to={'/panel/profile'}>
                                                     Profile

@@ -22,7 +22,7 @@ const Profile = () => {
         }
     }
     return (
-        <div className='p-5 bg-white min-h-screen'>
+        <div className='p-5 bg-white min-h-screen text-blue-gray-900'>
             <h1 className='text-2xl font-semibold'>User Infomation</h1>
             <div className='mt-10 max-w-2xl w-full'>
                 <div className='mb-5'>

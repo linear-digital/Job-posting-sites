@@ -1,6 +1,12 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 
 const Footer = () => {
+    const location = useLocation()
+
+    if (location.pathname.includes('panel')) {
+        return null
+    }
     return (
         <div className='mt-10'>
             <footer className="footer footer-center p-10 bg-base-200 text-base-content rounded">
@@ -8,7 +14,7 @@ const Footer = () => {
                     <a className="link link-hover">About us</a>
                     <a className="link link-hover">Contact</a>
                     <a className="link link-hover">Jobs</a>
-                
+
                 </nav>
                 <nav>
                     <div className="grid grid-flow-col gap-4">
@@ -18,7 +24,7 @@ const Footer = () => {
                     </div>
                 </nav>
                 <aside>
-                    <p>Copyright © 2024 - All right reserved by Job Planet</p>
+                    <p>Copyright © 2024 - All right reserved by Volunteering Society</p>
                 </aside>
             </footer>
         </div>

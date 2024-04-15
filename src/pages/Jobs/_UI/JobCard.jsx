@@ -74,9 +74,7 @@ export function JobCard({ job, mode, user, count, adminMode, refetch }) {
                 <Typography color="blue-gray" className="mb-2 text-sm flex">
                     <MapPinIcon height={16} />   {job?.location}
                 </Typography>
-                <Typography>
-                    {job?.salary?.start}$ - {job?.salary?.end}$ Per Month
-                </Typography>
+
                 <Typography>
                     {job?.description}
                 </Typography>

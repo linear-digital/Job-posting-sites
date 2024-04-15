@@ -15,8 +15,8 @@ const CreateJob = () => {
         location: '',
         description: '',
         salary: {
-            start: 0,
-            end: 0
+            start: 10,
+            end: 20
         },
         details: '',
 
@@ -55,27 +55,6 @@ const CreateJob = () => {
                     value={jobDetails.location}
                     onChange={(e) => setJobDetails({ ...jobDetails, location: e.target.value })}
                 />
-                <div className='mt-3'>
-                    <label className='text-base text-gray-600'>
-                        Salary Range
-                    </label>
-                    <div className="flex lg:flex-row flex-col mt-2 gap-5">
-                        <Input
-                            value={jobDetails.salary.start}
-                            onChange={(e) => setJobDetails({ ...jobDetails, salary: { ...jobDetails.salary, start: e.target.value } })}
-                            label="Salary Start"
-                            type='number'
-                            name='start'
-                        />
-                        <Input
-                            value={jobDetails.salary.end}
-                            onChange={(e) => setJobDetails({ ...jobDetails, salary: { ...jobDetails.salary, end: e.target.value } })}
-                            label="Salary End"
-                            type='number'
-                            name='end'
-                        />
-                    </div>
-                </div>
                 <div className="mt-5">
                     <Textarea label="Sort Description"
                         name='description'

@@ -3,6 +3,7 @@ import './App.css'
 import { StickyNavbar } from './components/Navbar/Navbar'
 import { Toaster } from 'react-hot-toast'
 import LoginDialog from './pages/Auth/_UI/LoginDialog'
+import Footer from './pages/Footer/Footer'
 function App() {
 
 
@@ -17,6 +18,7 @@ function App() {
         <LoginDialog />
         <Toaster />
         <Outlet />
+        <Footer />
       </div>
     </main>
   )

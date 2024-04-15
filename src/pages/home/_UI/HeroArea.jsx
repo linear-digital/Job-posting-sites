@@ -35,11 +35,11 @@ export default function HeroArea({ setFilters }) {
 
                     <div className="text-center">
                         <h1 className="text-2xl font-bold tracking-tight  sm:text-5xl text-primary">
-                            Find your dream job now
+                            Help someone in need
                         </h1>
                         <div className='flex items-center mx-auto lg:w-[600px] bg-white h-[70px] rounded-2xl mt-10 shadow-lg overflow-hidden'>
                             <input type="text" placeholder='Search for job '
-                                className='w-full h-full rounded-2xl px-4 text-black lg:text-lg text-sm border-none outline-none'
+                                className='w-full h-full rounded-2xl px-4 text-black bg-transparent lg:text-lg text-sm border-none outline-none'
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                             />

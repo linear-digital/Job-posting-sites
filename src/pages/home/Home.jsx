@@ -10,7 +10,6 @@ const Home = () => {
         <section className="container mx-auto">
             <HeroArea setFilters={setFilters}/>
             <Jobs filters={filters}/>
-            <Footer />
         </section>
     );
 };
